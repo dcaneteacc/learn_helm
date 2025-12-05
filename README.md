@@ -70,6 +70,9 @@ kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.pas
 ```
 
 # Create Helm demo-app
+
+Example to install a demo app.
+
 ```
 helm create demo-app
 
@@ -84,3 +87,26 @@ helm upgrade demo-app ./demo-app
 helm uninstall demo-app
 ```
 
+# Create and Deploy a Hello HTML 
+
+Example using external chart from bitnami repo
+
+```
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+
+helm create hello-nginx
+cd hello-nginx
+
+kubectl apply -f configmap.yaml
+helm install hello-nginx bitnami/nginx -f values.yaml
+
+kubectl logs deployment/hello-nginx
+
+kubectl port-forward svc/hello-nginx 8080:80
+
+kubectl get pods
+kubectl exec -it hello-nginx-XXXXXXXX -- sh
+
+helm upgrade --install hello-nginx bitnami/nginx
+```
