@@ -1,0 +1,20 @@
+{
+  "version": "1.0",
+  "configurations": [
+    {
+      "name": "Argo CD Dashboard",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "/usr/local/bin/kubectl",
+      "runtimeArgs": [
+        "port-forward",
+        "svc/argocd-server",
+        "-n",
+        "argocd",
+        "8080:443"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}
