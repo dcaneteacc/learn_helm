@@ -110,3 +110,23 @@ kubectl exec -it hello-nginx-XXXXXXXX -- sh
 
 helm upgrade --install hello-nginx bitnami/nginx
 ```
+
+# Create and Deploy a Hello World with time
+```
+cd hello-world-docker
+docker build -t hello-web:1.1 .
+docker tag hello-web:1.0 ghcr.io/<USER>/hello-web:1.1
+
+// Login into docker ghcr.io with your USER>
+// ...
+
+// Push the new tagged image
+docker push ghcr.io/<USER>/hello-web:1.1
+
+// Use that image in the new helm, replacing your image like this:
+image:
+  repository: ghcr.io/<USER>/hello-web
+  pullPolicy: IfNotPresent
+  tag: "1.1"
+
+```
