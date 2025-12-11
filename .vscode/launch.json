@@ -5,8 +5,10 @@
       "name": "Argo CD Dashboard",
       "type": "node",
       "request": "launch",
-      "runtimeExecutable": "/usr/local/bin/kubectl",
+      "runtimeExecutable": "/opt/homebrew/bin/kubectl",
       "runtimeArgs": [
+        "--context",
+        "minikube",
         "port-forward",
         "svc/argocd-server",
         "-n",
