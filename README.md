@@ -130,3 +130,45 @@ image:
   tag: "1.1"
 
 ```
+
+# Kubectl commands
+
+## Contexts
+```
+kubectl config get-contexts
+kubectl config current-context
+kubectl config use-context <name>
+kubectl config set-context <name>
+kubectl config delete-context <name>
+kubectl config rename-context <old> <new>
+kubectl config view
+kubectl config set-cluster <name> --server=<url>
+kubectl config set-credentials <user> --token=<token>
+kubectl config set-context <name> --cluster=<cluster> --user=<user>
+```
+
+## Forward
+```
+kubectl port-forward pod/<pod> 8080:80
+kubectl port-forward svc/<service> 8080:80
+kubectl port-forward deployment/<deploy> 8080:80
+kubectl port-forward statefulset/<sts> 8080:80
+kubectl port-forward replicaset/<rs> 8080:80
+```
+
+## Namespaces
+```
+kubectl get namespaces
+kubectl create namespace <name>
+kubectl delete namespace <name>
+kubectl config set-context --current --namespace=<name>
+kubectl get pods -n <name>
+kubectl describe ns <name>
+```
+
+## Combine contexts and namespaces
+```
+kubectl --context <context> --namespace <namespace> get all
+kubectl --context <context> --namespace <namespace> rollout restart deployment <name>
+```
+
