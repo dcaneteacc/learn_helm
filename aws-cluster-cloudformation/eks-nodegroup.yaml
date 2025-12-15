@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: EKS Node Group
+
+Parameters:
+  ClusterName:
+    Type: String
+  Subnet1:
+    Type: String
+  Subnet2:
+    Type: String
+
+Resources:
+  NodeRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+        - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+
+  NodeGroup:
+    Type: AWS::EKS::Nodegroup
+    Properties:
+      ClusterName: !Ref ClusterName
+      NodeRole: !GetAtt NodeRole.Arn
+      Subnets:
+        - !Ref Subnet1
+        - !Ref Subnet2
+      ScalingConfig:
+        MinSize: 1
+        MaxSize: 3
+        DesiredSize: 1
+      InstanceTypes:
+        - t3.medium
