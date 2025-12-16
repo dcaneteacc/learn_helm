@@ -172,3 +172,19 @@ kubectl --context <context> --namespace <namespace> get all
 kubectl --context <context> --namespace <namespace> rollout restart deployment <name>
 ```
 
+# AWS util commands
+
+## Update kube contexts
+```
+aws eks update-kubeconfig --name <CLUSTER_NAME> --region <region>
+```
+
+## Some commands
+```
+aws eks list-clusters --region <region>
+aws ec2 describe-regions
+aws configure get region
+aws configure set region <region>
+```
+
+
